@@ -1,4 +1,5 @@
 # Online Voting System
+![](https://github.com/itzsaad09/Online-Voting-System-Project/blob/bb3f099dbdccf25efe764e8c4f2aab8d34f69579/Screenshot%202025-07-10%20172722.png)
 
 # Overview
   The Online Voting System is a console-based application written in C++ that allows users to manage an election process. It provides functionalities for both administrators and voters, including adding parties and candidates, casting votes, and viewing election results. The system ensures that each voter can only vote once and maintains a history of votes for potential undo operations.
