@@ -1,0 +1,49 @@
+name: C++ Test Suites
+
+on:
+  workflow_dispatch: # Manual trigger only (per user instruction)
+
+jobs:
+  run-catch2-tests:
+    name: Run Catch2 Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Install Build Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake
+
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build Catch2 Target
+      run: cmake --build build --target catch2_tests --config Release
+
+    - name: Run Catch2 Suite
+      run: ./build/catch2_tests
+
+  run-gtest-tests:
+    name: Run Google Test (gtest) Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Install Build Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake
+
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build GTest Target
+      run: cmake --build build --target gtest_tests --config Release
+
+    - name: Run Google Test Suite
+      run: ./build/gtest_tests
