@@ -64,7 +64,7 @@ TEST_CASE("F-REQ-002 & NF-REQ-002: Party Management - Add Party", "[party]") {
     resetGlobalState();
 
     SECTION("Add valid party") {
-        RedirectIO io("Democracy Party\n");
+        RedirectIO io("\nDemocracy Party\n");
         addParty();
         REQUIRE(partyCount == 1);
         REQUIRE(parties[0].first == "Democracy Party");
@@ -72,18 +72,18 @@ TEST_CASE("F-REQ-002 & NF-REQ-002: Party Management - Add Party", "[party]") {
 
     SECTION("Add duplicate party") {
         {
-            RedirectIO io("Democracy Party\n");
+            RedirectIO io("\nDemocracy Party\n");
             addParty();
         }
         {
-            RedirectIO io("Democracy Party\n");
+            RedirectIO io("\nDemocracy Party\n");
             addParty();
         }
         REQUIRE(partyCount == 1); // Duplicate should not be added
     }
 
     SECTION("Add invalid party name (contains numbers)") {
-        RedirectIO io("Party 123\n");
+        RedirectIO io("\nParty 123\n");
         addParty();
         REQUIRE(partyCount == 0);
     }
@@ -94,13 +94,13 @@ TEST_CASE("F-REQ-002 & NF-REQ-002: Party Management - Add Party", "[party]") {
             // Let's use words like "PartyA", "PartyB", etc.
             std::string name = "Party";
             name += (char)('A' + i);
-            RedirectIO io2(name + "\n");
+            RedirectIO io2("\n" + name + "\n");
             addParty();
         }
         REQUIRE(partyCount == 10);
 
         // Try adding the 11th party
-        RedirectIO io("PartyK\n");
+        RedirectIO io("\nPartyK\n");
         addParty();
         REQUIRE(partyCount == 10);
     }
@@ -111,12 +111,12 @@ TEST_CASE("F-REQ-003 & F-REQ-004: Candidate Management", "[candidate]") {
 
     // Setup: add a party first
     {
-        RedirectIO io("Alpha Party\n");
+        RedirectIO io("\nAlpha Party\n");
         addParty();
     }
 
     SECTION("Add valid candidate") {
-        RedirectIO io("Alpha Party\nJohn Doe\n");
+        RedirectIO io("\nAlpha Party\nJohn Doe\n");
         addCandidate();
         REQUIRE(parties[0].second != nullptr);
         REQUIRE(parties[0].second->name == "John Doe");
@@ -125,11 +125,11 @@ TEST_CASE("F-REQ-003 & F-REQ-004: Candidate Management", "[candidate]") {
 
     SECTION("Add duplicate candidate in the same party") {
         {
-            RedirectIO io("Alpha Party\nJohn Doe\n");
+            RedirectIO io("\nAlpha Party\nJohn Doe\n");
             addCandidate();
         }
         {
-            RedirectIO io("Alpha Party\nJohn Doe\n");
+            RedirectIO io("\nAlpha Party\nJohn Doe\n");
             addCandidate();
         }
         // Linked list should only contain one John Doe
@@ -143,7 +143,7 @@ TEST_CASE("F-REQ-003 & F-REQ-004: Candidate Management", "[candidate]") {
     }
 
     SECTION("Add invalid candidate name (numeric)") {
-        RedirectIO io("Alpha Party\nJohn123\n");
+        RedirectIO io("\nAlpha Party\nJohn123\n");
         addCandidate();
         REQUIRE(parties[0].second == nullptr);
     }
@@ -189,11 +189,11 @@ TEST_CASE("F-REQ-007, F-REQ-009, & F-REQ-010: Vote Casting and History", "[votin
 
     // Setup: 1 party, 1 candidate, 1 voter
     {
-        RedirectIO io("Beta Party\n");
+        RedirectIO io("\nBeta Party\n");
         addParty();
     }
     {
-        RedirectIO io("Beta Party\nJane Smith\n");
+        RedirectIO io("\nBeta Party\nJane Smith\n");
         addCandidate();
     }
     voters["9876543210123"] = Voter("9876543210123");
@@ -232,11 +232,11 @@ TEST_CASE("F-REQ-016 & F-REQ-017: Party and Candidate Data Persistence", "[party
     resetGlobalState();
 
     {
-        RedirectIO io("Gamma Party\n");
+        RedirectIO io("\nGamma Party\n");
         addParty();
     }
     {
-        RedirectIO io("Gamma Party\nAlice\n");
+        RedirectIO io("\nGamma Party\nAlice\n");
         addCandidate();
     }
 

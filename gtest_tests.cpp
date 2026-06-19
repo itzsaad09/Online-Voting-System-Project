@@ -65,20 +65,20 @@ TEST(VotingSystemTests, AddParty) {
     resetGlobalState();
 
     {
-        RedirectIO io("Democracy Party\n");
+        RedirectIO io("\nDemocracy Party\n");
         addParty();
         EXPECT_EQ(partyCount, 1);
         EXPECT_EQ(parties[0].first, "Democracy Party");
     }
 
     {
-        RedirectIO io("Democracy Party\n");
+        RedirectIO io("\nDemocracy Party\n");
         addParty();
         EXPECT_EQ(partyCount, 1); // Duplicates should be prevented
     }
 
     {
-        RedirectIO io("Invalid123\n");
+        RedirectIO io("\nInvalid123\n");
         addParty();
         EXPECT_EQ(partyCount, 1); // Invalid party should not be added
     }
@@ -89,12 +89,12 @@ TEST(VotingSystemTests, CandidateManagement) {
     resetGlobalState();
 
     {
-        RedirectIO io("Beta Party\n");
+        RedirectIO io("\nBeta Party\n");
         addParty();
     }
 
     {
-        RedirectIO io("Beta Party\nJane Doe\n");
+        RedirectIO io("\nBeta Party\nJane Doe\n");
         addCandidate();
         ASSERT_NE(parties[0].second, nullptr);
         EXPECT_EQ(parties[0].second->name, "Jane Doe");
@@ -102,7 +102,7 @@ TEST(VotingSystemTests, CandidateManagement) {
     }
 
     {
-        RedirectIO io("Beta Party\nJane Doe\n");
+        RedirectIO io("\nBeta Party\nJane Doe\n");
         addCandidate();
         // Duplicates within the same party prevented
         int count = 0;
@@ -144,11 +144,11 @@ TEST(VotingSystemTests, VoteCastingAndHistory) {
     resetGlobalState();
 
     {
-        RedirectIO io("Vote Party\n");
+        RedirectIO io("\nVote Party\n");
         addParty();
     }
     {
-        RedirectIO io("Vote Party\nAlice Smith\n");
+        RedirectIO io("\nVote Party\nAlice Smith\n");
         addCandidate();
     }
     voters["9876543210123"] = Voter("9876543210123");
