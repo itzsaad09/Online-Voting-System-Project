@@ -27,11 +27,13 @@ enable_testing()
 # Add Catch2 tests executable
 add_executable(catch2_tests catch2_tests.cpp)
 target_include_directories(catch2_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(catch2_tests PRIVATE UNIT_TESTING)
 target_link_libraries(catch2_tests PRIVATE Catch2::Catch2)
 add_test(NAME catch2_tests COMMAND catch2_tests)
 
 # Add GTest tests executable (links to gtest since we defined our own main in gtest_tests.cpp)
 add_executable(gtest_tests gtest_tests.cpp)
 target_include_directories(gtest_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(gtest_tests PRIVATE UNIT_TESTING)
 target_link_libraries(gtest_tests PRIVATE gtest)
 add_test(NAME gtest_tests COMMAND gtest_tests)

@@ -59,6 +59,7 @@ void loadVotersFromFile();
 void savePartiesToFile();
 void loadPartiesFromFile();
 
+#if defined(DOCTEST_CONFIG_DISABLE) && !defined(UNIT_TESTING)
 // Main function
 int main() {
     loadVotersFromFile();
@@ -68,6 +69,7 @@ int main() {
     savePartiesToFile();
     return 0;
 }
+#endif
 
 // Function to display the main screen
 void mainScreen() {
